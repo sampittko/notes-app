@@ -75,7 +75,7 @@ function App() {
 
       <Paper sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>
-          Notes {loading && '(loading...)'}
+          Notes {loading && 'loading...'}
         </Typography>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel>Category</InputLabel>

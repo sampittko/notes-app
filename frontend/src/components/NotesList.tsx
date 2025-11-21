@@ -22,8 +22,12 @@ export function NotesList({ notes, onEdit }: NotesListProps) {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state) => state.notes.loading);
 
-  if (notes.length === 0) {
+  if (notes.length === 0 && !loading) {
     return <Typography color="text.secondary">No notes yet.</Typography>;
+  }
+
+  if (notes.length === 0) {
+    return null;
   }
 
   return (
