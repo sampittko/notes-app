@@ -5,7 +5,8 @@ function isValidNote(note: unknown): note is Note {
     return false;
   }
 
-  const { id, title, description, category } = note as Note;
+  const { id, title, description, category, createdAt, updatedAt } =
+    note as Note;
 
   if (typeof id !== 'string' || typeof title !== 'string') {
     return false;
@@ -19,6 +20,15 @@ function isValidNote(note: unknown): note is Note {
     return false;
   }
 
+  if (
+    typeof createdAt !== 'string' ||
+    typeof updatedAt !== 'string' ||
+    isNaN(new Date(createdAt).getTime()) ||
+    isNaN(new Date(updatedAt).getTime())
+  ) {
+    return false;
+  }
+
   return true;
 }
 
@@ -26,7 +36,10 @@ export function loadNotesFromStorage(): Note[] {
   try {
     const data = JSON.parse(localStorage.getItem('notes') || '[]');
     if (Array.isArray(data) && data.every(isValidNote)) {
-      return data;
+      return data.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
     }
     return [];
   } catch {

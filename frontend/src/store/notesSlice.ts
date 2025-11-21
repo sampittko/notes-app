@@ -27,9 +27,12 @@ const notesSlice = createSlice({
         return;
       }
       state.validationErrors = null;
+      const now = new Date().toISOString();
       state.notes.push({
         ...action.payload,
         id: crypto.randomUUID(),
+        createdAt: now,
+        updatedAt: now,
       });
       saveNotesToStorage(state.notes);
     },
@@ -44,7 +47,10 @@ const notesSlice = createSlice({
         (note) => note.id === action.payload.id
       );
       if (index !== -1) {
-        state.notes[index] = action.payload;
+        state.notes[index] = {
+          ...action.payload,
+          updatedAt: new Date().toISOString(),
+        };
         saveNotesToStorage(state.notes);
       }
     },
