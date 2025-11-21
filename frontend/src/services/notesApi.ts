@@ -1,8 +1,12 @@
 import { Note, NoteInput } from '../types/note';
 
 const API_URL = 'http://localhost:3001/notes';
+const ARTIFICIAL_DELAY_MS = 500;
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export async function fetchNotes(): Promise<Note[]> {
+  await delay(ARTIFICIAL_DELAY_MS);
   const response = await fetch(`${API_URL}?_sort=createdAt&_order=desc`);
   if (!response.ok) {
     throw new Error('Failed to fetch notes');
@@ -11,6 +15,7 @@ export async function fetchNotes(): Promise<Note[]> {
 }
 
 export async function createNote(input: NoteInput): Promise<Note> {
+  await delay(ARTIFICIAL_DELAY_MS);
   const now = new Date().toISOString();
   const note: Omit<Note, 'id'> = {
     ...input,
@@ -31,6 +36,7 @@ export async function createNote(input: NoteInput): Promise<Note> {
 }
 
 export async function updateNote(note: Note): Promise<Note> {
+  await delay(ARTIFICIAL_DELAY_MS);
   const updated: Note = {
     ...note,
     updatedAt: new Date().toISOString(),
@@ -49,6 +55,7 @@ export async function updateNote(note: Note): Promise<Note> {
 }
 
 export async function deleteNote(id: string): Promise<void> {
+  await delay(ARTIFICIAL_DELAY_MS);
   const response = await fetch(`${API_URL}/${id}`, {
     method: 'DELETE',
   });
