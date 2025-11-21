@@ -24,8 +24,17 @@ const notesSlice = createSlice({
       });
       saveNotesToStorage(state.notes);
     },
+    updateNote: (state, action: PayloadAction<Note>) => {
+      const index = state.notes.findIndex(
+        (note) => note.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.notes[index] = action.payload;
+        saveNotesToStorage(state.notes);
+      }
+    },
   },
 });
 
-export const { createNote } = notesSlice.actions;
+export const { createNote, updateNote } = notesSlice.actions;
 export default notesSlice.reducer;
