@@ -1,12 +1,25 @@
 import { Note } from '../types/note';
 
 function isValidNote(note: unknown): note is Note {
-  return (
-    typeof note === 'object' &&
-    note !== null &&
-    typeof (note as Note).id === 'string' &&
-    typeof (note as Note).title === 'string'
-  );
+  if (typeof note !== 'object' || note === null) {
+    return false;
+  }
+
+  const { id, title, description, category } = note as Note;
+
+  if (typeof id !== 'string' || typeof title !== 'string') {
+    return false;
+  }
+
+  if (description != null && typeof description !== 'string') {
+    return false;
+  }
+
+  if (category != null && typeof category !== 'string') {
+    return false;
+  }
+
+  return true;
 }
 
 export function loadNotesFromStorage(): Note[] {
