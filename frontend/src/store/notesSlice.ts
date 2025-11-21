@@ -33,8 +33,12 @@ const notesSlice = createSlice({
         saveNotesToStorage(state.notes);
       }
     },
+    deleteNote: (state, action: PayloadAction<string>) => {
+      state.notes = state.notes.filter((note) => note.id !== action.payload);
+      saveNotesToStorage(state.notes);
+    },
   },
 });
 
-export const { createNote, updateNote } = notesSlice.actions;
+export const { createNote, updateNote, deleteNote } = notesSlice.actions;
 export default notesSlice.reducer;
