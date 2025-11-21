@@ -1,6 +1,6 @@
 import { Note, NoteInput } from '../types/note';
 
-const API_URL = 'http://localhost:3001/notes';
+const API_URL = process.env.REACT_APP_API_URL ?? '';
 const ARTIFICIAL_DELAY_MS = 500;
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
