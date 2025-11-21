@@ -14,12 +14,13 @@ import { deleteNote } from '../store/notesSlice';
 import { Note } from '../types/note';
 
 type NotesListProps = {
+  notes: Note[];
   onEdit: (note: Note) => void;
 };
 
-export function NotesList({ onEdit }: NotesListProps) {
+export function NotesList({ notes, onEdit }: NotesListProps) {
   const dispatch = useAppDispatch();
-  const { notes, loading } = useAppSelector((state) => state.notes);
+  const loading = useAppSelector((state) => state.notes.loading);
 
   if (notes.length === 0) {
     return <Typography color="text.secondary">No notes yet.</Typography>;
