@@ -5,9 +5,7 @@ import '@fontsource/roboto/700.css';
 import { Typography } from '@mui/material';
 
 function App() {
-  return (
-    <Typography variant="h4">Notes App</Typography>
-  );
+  return <Typography variant="h4">Notes App</Typography>;
 }
 
 export default App;
